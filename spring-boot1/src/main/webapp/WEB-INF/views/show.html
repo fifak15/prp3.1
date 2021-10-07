@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>User Info</title>
+</head>
+<body>
+
+<table th:border="1">
+    <tr>
+        <th>Name</th>
+        <th>Surname</th>
+        <th>Age</th>
+        <th>Email</th>
+        <th>Roles</th>
+    </tr>
+    <tr>
+        <td th:text="${user.getName()}">name</td>
+        <td th:text="${user.getSurname()}">surname</td>
+        <td th:text="${user.getAge()}">age</td>
+        <td th:text="${user.getEmail()}">email</td>
+        <td th:text="${user.getRoles()}">roles</td>
+    </tr>
+</table>
+<br>
+<div sec:authorize="hasRole('ADMIN')">
+    <form th:method="delete" th:action="@{/admin/users/{id}(id=${user.getId()})}" id=delete>
+        <input type="submit" value="Delete">
+    </form>
+    <form th:method="get" th:action="@{/admin/users}">
+        <input type="submit" value="Return">
+    </form>
+</div>
+<br>
+<form th:method="get" th:action="@{/logout}">
+    <input type="submit" value="Logout">
+</form>
+
+</body>
+</html>
